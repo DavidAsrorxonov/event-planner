@@ -52,7 +52,10 @@ export default function RootLayout({
               </nav>
             </div>
           </header>
-          {children}
+
+          <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-8">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
