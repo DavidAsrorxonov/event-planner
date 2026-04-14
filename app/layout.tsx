@@ -39,9 +39,16 @@ export default function RootLayout({
         >
           <header className="border-b border-border bg-accent/80 backdrop-blur">
             <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between">
-              <Link href={"/"}>Event Planner</Link>
-              <nav>
-                <Link href={"/dashboard"}>Dashboard</Link>
+              <Link href={"/"} className="text-sm font-semibold tracking-wide">
+                Event Planner
+              </Link>
+              <nav className="flex items-center gap-4">
+                <Link
+                  href={"/dashboard"}
+                  className="text-sm text-muted-foreground"
+                >
+                  Dashboard
+                </Link>
               </nav>
             </div>
           </header>
