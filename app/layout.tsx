@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
+import { NeonAuthUIProvider } from "@neondatabase/auth/react";
+import { authClient } from "@/lib/auth/client";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,32 +33,37 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <header className="border-b border-border bg-accent/80 backdrop-blur">
-            <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between">
-              <Link href={"/"} className="text-sm font-semibold tracking-wide">
-                Event Planner
-              </Link>
-              <nav className="flex items-center gap-4">
+        <NeonAuthUIProvider authClient={authClient as any}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <header className="border-b border-border bg-accent/80 backdrop-blur">
+              <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between">
                 <Link
-                  href={"/dashboard"}
-                  className="text-sm text-muted-foreground"
+                  href={"/"}
+                  className="text-sm font-semibold tracking-wide"
                 >
-                  Dashboard
+                  Event Planner
                 </Link>
-              </nav>
-            </div>
-          </header>
+                <nav className="flex items-center gap-4">
+                  <Link
+                    href={"/dashboard"}
+                    className="text-sm text-muted-foreground"
+                  >
+                    Dashboard
+                  </Link>
+                </nav>
+              </div>
+            </header>
 
-          <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-8">
-            {children}
-          </main>
-        </ThemeProvider>
+            <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-8">
+              {children}
+            </main>
+          </ThemeProvider>
+        </NeonAuthUIProvider>
       </body>
     </html>
   );
