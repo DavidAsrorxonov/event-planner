@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
+import { countByStatus } from "@/lib/helper/count-by-status";
 
 const DashbaordContent = async ({ userId }: { userId: string | undefined }) => {
   const rows = await prisma.event.findMany({
@@ -15,6 +16,7 @@ const DashbaordContent = async ({ userId }: { userId: string | undefined }) => {
       title: true,
       eventDate: true,
       location: true,
+      rsvps: { select: { status: true } },
     },
   });
 
@@ -23,6 +25,7 @@ const DashbaordContent = async ({ userId }: { userId: string | undefined }) => {
     title: event.title,
     eventDate: event.eventDate ? event.eventDate.toISOString() : null,
     location: event.location,
+    ...countByStatus(event.rsvps),
   }));
 
   return (
@@ -63,9 +66,11 @@ const DashbaordContent = async ({ userId }: { userId: string | undefined }) => {
                   </Button>
                 </div>
                 <div className="flex flex-wrap gap-2 text-xs">
-                  <Badge variant={"secondary"} />
-                  <Badge variant={"secondary"} />
-                  <Badge variant={"secondary"} />
+                  <Badge variant={"secondary"}>Going: {event.going}</Badge>
+                  <Badge variant={"secondary"}>Maybe: {event.maybe}</Badge>
+                  <Badge variant={"secondary"}>
+                    Not Going: {event.not_going}
+                  </Badge>
                 </div>
                 <p>
                   {event.eventDate

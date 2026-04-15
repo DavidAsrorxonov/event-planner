@@ -27,7 +27,6 @@ export type CreateEventInput = z.infer<typeof createEventSchema>;
 
 export async function createEventAction(data: CreateEventInput) {
   try {
-    // Validate the input
     const validatedData = createEventSchema.parse(data);
 
     const session = await getSession();
@@ -40,7 +39,6 @@ export async function createEventAction(data: CreateEventInput) {
       };
     }
 
-    // Create the event
     const event = await prisma.event.create({
       data: {
         ownerUserId: userId,

@@ -59,7 +59,6 @@ const NewEventPage = () => {
     setSubmitError(null);
 
     try {
-      // Convert form data to the expected format
       const actionData: CreateEventInput = {
         title: data.title,
         description: data.description ? data.description : undefined,
@@ -72,7 +71,6 @@ const NewEventPage = () => {
       if (result.success) {
         router.push("/dashboard");
       } else if ("errors" in result && result.errors) {
-        // Handle field-level errors
         const fieldErrors = result.errors as Record<string, string[]>;
         Object.entries(fieldErrors).forEach(([field, errors]) => {
           if (Array.isArray(errors) && errors.length > 0) {
