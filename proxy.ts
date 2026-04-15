@@ -16,14 +16,5 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    /*
-      Protect app pages, but skip:
-      - api routes
-      - Next.js internals
-      - images/files
-      - favicon
-    */
-    "/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|invite|.*\\..*).*)"],
 };
