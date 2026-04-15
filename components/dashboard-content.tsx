@@ -14,7 +14,7 @@ const DashbaordContent = async ({ userId }: { userId: string | undefined }) => {
         </div>
 
         <Button asChild>
-          <Link href={"/event/new"}>Create Event</Link>
+          <Link href={"/events/new"}>Create Event</Link>
         </Button>
       </div>
     </div>
