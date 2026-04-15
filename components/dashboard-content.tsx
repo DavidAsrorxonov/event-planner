@@ -66,9 +66,9 @@ const DashbaordContent = async ({ userId }: { userId: string | undefined }) => {
                   </Button>
                 </div>
                 <div className="flex flex-wrap gap-2 text-xs">
-                  <Badge variant={"secondary"}>Going: {event.going}</Badge>
+                  <Badge>Going: {event.going}</Badge>
                   <Badge variant={"secondary"}>Maybe: {event.maybe}</Badge>
-                  <Badge variant={"secondary"}>
+                  <Badge variant={"outline"}>
                     Not Going: {event.not_going}
                   </Badge>
                 </div>

@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import * as z from "zod";
 import { getSession } from "../auth/server";
+import { redirect } from "next/navigation";
 
 const createEventSchema = z.object({
   title: z
@@ -51,10 +52,7 @@ export async function createEventAction(data: CreateEventInput) {
       },
     });
 
-    return {
-      success: true,
-      data: event,
-    };
+    redirect(`/events/${event.id}`);
   } catch (error) {
     if (error instanceof z.ZodError) {
       return {
@@ -69,4 +67,26 @@ export async function createEventAction(data: CreateEventInput) {
       error: "Failed to create event",
     };
   }
+}
+
+export async function createInviteLinkAction(eventId: string) {
+  const session = await getSession();
+  const userId = session.data?.user.id;
+
+  const owns = await prisma.event.findFirst({
+    where: { id: eventId, ownerUserId: userId },
+    select: { id: true },
+  });
+
+  if (!owns) {
+    throw new Error("Event not owned by user or does not exist");
+  }
+
+  const token = crypto.randomUUID().replace(/-/g, "");
+
+  await prisma.eventInvite.upsert({
+    where: { eventId },
+    create: { eventId, token },
+    update: { token },
+  });
 }
