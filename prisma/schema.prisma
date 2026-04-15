@@ -51,7 +51,7 @@ model EventRsvp {
   inviteId String? @map("invite_id") @db.Uuid
   name String
   email String 
-  emailNormalized String @default(dbgenerated("LOWER(email)")) @map("email_normalized")
+  emailNormalized String @map("email_normalized")
   status RsvpStatus
   respondedAt DateTime @default(now()) @map("responded_at") @db.Timestamptz(6)
   createdAt DateTime @default(now()) @map("createdAt") @db.Timestamptz(6)
