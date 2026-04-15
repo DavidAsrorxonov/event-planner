@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
-import { NeonAuthUIProvider } from "@neondatabase/auth/react";
+import { NeonAuthUIProvider, UserButton } from "@neondatabase/auth/react";
 import { authClient } from "@/lib/auth/client";
 
 const geistSans = Geist({
@@ -55,6 +55,7 @@ export default function RootLayout({
                   >
                     Dashboard
                   </Link>
+                  <UserButton size="icon" />
                 </nav>
               </div>
             </header>
